@@ -1,77 +1,93 @@
-# 🖥️ Configuration d'un menu PowerShell pour Windows Server 2022
+# Automatisation du déploiement de services Windows Server 2022 via un menu PowerShell interactif
 
-## 📋 Présentation
+## 📋 Contexte
 
-Ce projet propose un menu interactif en PowerShell destiné à simplifier la configuration de services essentiels sur Windows Server 2022. Il permet d'automatiser des tâches courantes telles que :
+Dans le cadre d'un atelier BTS SIO option SISR, développement d'un outil d'automatisation permettant de déployer et configurer l'ensemble des services d'un Windows Server 2022 via un menu interactif en PowerShell. L'objectif était de réduire le temps de configuration manuelle tout en garantissant une installation reproductible et documentée.
 
-- Renommage du serveur
-- Configuration de l'adresse IP
-- Installation des rôles AD DS, DNS et DHCP
-- Configuration d'Active Directory
-- Création d'unités organisationnelles (OU), de groupes et d'utilisateurs
-- Importation d'utilisateurs depuis un fichier CSV
+---
 
-Ce menu est particulièrement utile pour les étudiants en apprentissage et les entreprises souhaitant déployer rapidement un environnement serveur fonctionnel.
+## 🎯 Objectif
 
-## 🎯 Objectifs
+Concevoir et développer un menu PowerShell interactif permettant à un administrateur de déployer en quelques minutes l'ensemble des services d'un serveur Windows (AD DS, DNS, DHCP, OUs, groupes, utilisateurs) sans intervention graphique.
 
-- **Automatisation** : Réduire le temps de configuration manuelle
-- **Simplicité** : Offrir une interface conviviale pour les administrateurs
-- **Pédagogie** : Servir de support d'apprentissage pour les étudiants en BTS SIO SISR
+---
 
 ## 🛠️ Technologies utilisées
 
-- **Système d'exploitation** : Windows Server 2022 (dans une VM VirtualBox)
-- **Langage de script** : PowerShell
-- **Éditeur de code** : Visual Studio Code
-- **Transfert de fichiers** : Partage de dossiers VirtualBox
+| Technologie | Rôle |
+|---|---|
+| PowerShell | Langage de script et moteur du menu interactif |
+| Windows Server 2022 | Système cible du déploiement |
+| Active Directory (AD DS) | Service déployé et configuré via les scripts |
+| DNS & DHCP | Services réseau automatisés |
+| Visual Studio Code | Environnement de développement |
+| Oracle VirtualBox | Environnement de virtualisation et de test |
 
-## 🗂️ Structure du projet
+---
 
+## ⚙️ Ce qui a été réalisé
+
+### Structure du projet
+
+```
 Nedj_PS_1/
-├── main.ps1
-├── 1-rename.ps1
-├── 2-ipconfig.ps1
-├── 3-install-roles.ps1
-├── 4-configure-adds.ps1
-├── 5-configure-dns.ps1
-├── 6-configure-dhcp.ps1
-├── 7-add-ou.ps1
-├── 8-add-group.ps1
-├── 9-add-user.ps1
-├── 10-import-csv.ps1
-├── 11-exit.ps1
-└── README.md
+├── main.ps1              ← Menu principal interactif
+├── 1-rename.ps1          ← Renommage du serveur
+├── 2-ipconfig.ps1        ← Configuration IP statique
+├── 3-install-roles.ps1   ← Installation des rôles AD, DNS, DHCP
+├── 4-configure-adds.ps1  ← Configuration Active Directory
+├── 5-configure-dns.ps1   ← Configuration DNS
+├── 6-configure-dhcp.ps1  ← Configuration DHCP
+├── 7-add-ou.ps1          ← Création des Unités Organisationnelles
+├── 8-add-group.ps1       ← Création des groupes AD
+├── 9-add-user.ps1        ← Création des utilisateurs
+├── 10-import-csv.ps1     ← Import en masse depuis fichier CSV
+└── 11-exit.ps1           ← Quitter le menu
+```
 
+### Fonctionnalités du menu interactif
 
-## 🚀 Installation et utilisation
+| Option | Action |
+|---|---|
+| [1] | Renommer le serveur |
+| [2] | Configurer l'adresse IP statique |
+| [3] | Installer les rôles AD DS, DNS, DHCP |
+| [4] | Configurer Active Directory et promouvoir le DC |
+| [5] | Configurer le service DNS |
+| [6] | Configurer le service DHCP |
+| [7] | Créer les Unités Organisationnelles |
+| [8] | Créer les groupes dans l'AD |
+| [9] | Créer les utilisateurs manuellement |
+| [10] | Importer des utilisateurs depuis un fichier CSV |
+| [11] | Quitter |
 
-1. **Préparation de l'environnement** :
-   - Installer Windows Server 2022 dans une VM VirtualBox
-   - Activer le partage de dossiers pour transférer les scripts
+### Points techniques clés
+- Vérification des droits administrateur au lancement
+- Gestion des erreurs avec messages explicites à chaque étape
+- Import CSV permettant la création en masse de comptes utilisateurs
+- Chaque script est indépendant et peut être exécuté séparément
 
-2. **Transfert des scripts** :
-   - Copier les fichiers `.ps1` dans un dossier partagé accessible depuis la VM
+---
 
-3. **Exécution du menu principal** :
-   - Ouvrir PowerShell en tant qu'administrateur
-   - Naviguer jusqu'au dossier contenant les scripts
-   - Exécuter la commande suivante :
-     ```powershell
-     .\main.ps1
-     ```
+## ✅ Résultats obtenus
 
-4. **Navigation dans le menu** :
-   - Utiliser les options proposées pour configurer le serveur selon les besoins
+- Menu opérationnel permettant de déployer un serveur complet en moins de 30 minutes
+- Déploiement testé et validé sur VM Windows Server 2022 sous VirtualBox
+- Code versionné et disponible sur GitHub
 
-## 📸 Captures d'écran
+---
 
-![image](https://github.com/user-attachments/assets/5c9a62a7-9891-45b2-95c0-1f946c3ba4c1)
+## 🔗 Compétences BTS SIO mobilisées
 
-## 👥 Auteur
+| Compétence | Description |
+|---|---|
+| **B1.1** | Gérer le patrimoine informatique (automatisation de la configuration) |
+| **B1.5** | Mettre à disposition des utilisateurs un service informatique |
 
-- **Nom** : Nedj
-- **Formation** : BTS SIO SISR – Promotion 2025
-- **Établissement** : Mediaschool Nice
+---
 
+## 👤 Auteur
 
+**Nedjmeddine Belloum** — BTS SIO option SISR  
+Centre de formation : Mediaschool Nice — IRIS  
+Période : 14/05/2025 au 25/05/2025  
